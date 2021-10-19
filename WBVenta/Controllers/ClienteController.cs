@@ -24,7 +24,7 @@ namespace WBVenta.Controllers
             {
                 using (Venta_systemContext db = new Venta_systemContext())
                 {
-                    var lst = db.Clientes.ToList();
+                    var lst = db.Clientes.OrderByDescending(d=> d.Id).ToList();
                     oRespuesta.Exito = 1;
                     oRespuesta.Data = lst;
                 }

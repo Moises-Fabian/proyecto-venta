@@ -31,6 +31,7 @@ namespace WBVenta
                 options.AddPolicy(name: MyCors,
                     builder =>
                     {
+                        builder.WithHeaders("*");
                         builder.WithOrigins("*");
                     });
             });
