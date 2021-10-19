@@ -4,12 +4,6 @@ import { Observable, observable } from 'rxjs';
 import { Response } from '../models/response';
 import { cliente } from '../models/cliente';
 
-const httpOption = {
-  Headers: new HttpHeaders({
-    'content-type': 'application/json'
-  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,4 +22,13 @@ export class ApiclienteService {
   add(cliente: cliente): Observable<Response> {
     return this._http.post<Response>(this.url, cliente);
   }
+
+  edit(cliente: cliente): Observable<Response> {
+    return this._http.put<Response>(this.url, cliente);
+  }
+
+  delete(id: number): Observable<Response> {
+    return this._http.delete<Response>(`${this.url}/${id}`);
+  }
 }
+

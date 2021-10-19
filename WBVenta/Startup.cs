@@ -33,6 +33,7 @@ namespace WBVenta
                     {
                         builder.WithHeaders("*");
                         builder.WithOrigins("*");
+                        builder.WithMethods("*");
                     });
             });
             services.AddControllers();
