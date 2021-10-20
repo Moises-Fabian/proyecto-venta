@@ -5,16 +5,11 @@ using System.Collections.Generic;
 
 namespace WBVenta.Models
 {
-    public partial class Cliente
+    public partial class Usuario
     {
-        public Cliente()
-        {
-            Venta = new HashSet<Ventum>();
-        }
-
         public int Id { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public string Nombre { get; set; }
-
-        public virtual ICollection<Ventum> Venta { get; set; }
     }
 }

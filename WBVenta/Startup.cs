@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,10 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using WBVenta.Models.Common;
+using WBVenta.Services;
 
 namespace WBVenta
 {
@@ -37,6 +42,32 @@ namespace WBVenta
                     });
             });
             services.AddControllers();
+
+            //jwt
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSetting>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<AppSetting>();
+            var llave = Encoding.ASCII.GetBytes(appSettings.SecretKey);
+            services.AddAuthentication(d =>
+            {
+                d.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                d.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+             .AddJwtBearer(d =>
+             {
+                 d.RequireHttpsMetadata = false;
+                 d.SaveToken = true;
+                 d.TokenValidationParameters = new TokenValidationParameters
+                 {
+                     ValidateIssuerSigningKey = true,
+                     IssuerSigningKey = new SymmetricSecurityKey(llave),
+                     ValidateIssuer = false,
+                     ValidateAudience = false
+                 };
+             });
+
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +83,8 @@ namespace WBVenta
             app.UseRouting();
 
             app.UseCors(MyCors);
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
