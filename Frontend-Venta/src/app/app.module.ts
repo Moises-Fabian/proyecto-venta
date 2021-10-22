@@ -4,18 +4,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { HomeComponent } from './home/home.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { HttpClientModule } from '@angular/common/http';
+
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatCardModule} from '@angular/material/card';
+
 import { dialogClienteComponent } from 'src/dialog/dialogcliente.component';
 import { FormsModule } from '@angular/forms';
 import { DialogDeleteComponent } from './common/delete/dialogDelete.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,9 @@ import { DialogDeleteComponent } from './common/delete/dialogDelete.component';
     HomeComponent,
     ClienteComponent,
     dialogClienteComponent,
-    DialogDeleteComponent
+    DialogDeleteComponent,
+    LoginComponent
+
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,8 @@ import { DialogDeleteComponent } from './common/delete/dialogDelete.component';
     MatButtonModule,
     MatInputModule,
     MatSnackBarModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
