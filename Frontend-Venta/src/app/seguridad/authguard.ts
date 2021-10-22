@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router, CanActivate, ActivatedRouteSnapshot } from "@angular/router";
+import { ApiauthService } from '../services/apiauth.service';
 
 
 
@@ -10,10 +11,16 @@ export class authGuard implements CanActivate{
   /**
    *
    */
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private apiauthservice: ApiauthService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot){
+    const usuario = this.apiauthservice.usuarioData;
+
+    if (usuario) {
+      return true;
+    }
     this.router.navigate(['/login']);
     return false;
   }

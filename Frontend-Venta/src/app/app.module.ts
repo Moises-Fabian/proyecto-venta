@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { ClienteComponent } from './cliente/cliente.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
@@ -20,6 +20,7 @@ import { dialogClienteComponent } from 'src/dialog/dialogcliente.component';
 import { FormsModule } from '@angular/forms';
 import { DialogDeleteComponent } from './common/delete/dialogDelete.component';
 import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './seguridad/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,9 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
