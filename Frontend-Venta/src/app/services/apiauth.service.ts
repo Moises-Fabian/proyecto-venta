@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Response } from "../models/response";
 import { usuario } from '../models/usuario';
 import { map } from 'rxjs/operators'
+import { login } from "../models/login";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class ApiauthService{
      new BehaviorSubject<usuario>(JSON.parse(localStorage.getItem('usuario')));
   }
 
-  login (email: string, password: string): Observable<Response>{
-       return this.http.post<Response>(this.url, {email, password}).pipe(
+  login (login: login): Observable<Response>{
+       return this.http.post<Response>(this.url, login).pipe(
          map(res => {
            if(res.exito === 1){
             const usuario : usuario = res.data;

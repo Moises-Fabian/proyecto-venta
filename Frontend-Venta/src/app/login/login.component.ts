@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiauthService } from '../services/apiauth.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,21 +10,31 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private apiauthService: ApiauthService,
-    private router: Router) {
-      if (this.apiauthService.usuarioData) {
-        this.router.navigate(['/']);
-      }
-    }
+  public loginForm = this.formbuilder.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required]
+  });
 
-  public email: string;
-  public password: string;
+
+  // public loginForm = new FormGroup({
+  //   email: new FormControl(''),
+  //   password: new FormControl('')
+  // });
+
+  constructor(private apiauthService: ApiauthService,
+    private router: Router,
+    private formbuilder: FormBuilder) {
+      // if (this.apiauthService.usuarioData) {
+      //   this.router.navigate(['/']);
+      // }
+    }
 
   ngOnInit(): void {
   }
 
   login(){
-    this.apiauthService.login(this.email, this.password).subscribe(response =>{
+    console.log(this.loginForm.value);
+    this.apiauthService.login(this.loginForm.value).subscribe(response =>{
       if(response.exito === 1){
         this.router.navigate(['/']);
       }

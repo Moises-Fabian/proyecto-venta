@@ -17,7 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatCardModule} from '@angular/material/card';
 
 import { dialogClienteComponent } from 'src/dialog/dialogcliente.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogDeleteComponent } from './common/delete/dialogDelete.component';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './seguridad/jwt.interceptor';
@@ -29,8 +29,7 @@ import { JwtInterceptor } from './seguridad/jwt.interceptor';
     ClienteComponent,
     dialogClienteComponent,
     DialogDeleteComponent,
-    LoginComponent
-
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +43,8 @@ import { JwtInterceptor } from './seguridad/jwt.interceptor';
     MatInputModule,
     MatSnackBarModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
