@@ -14,6 +14,7 @@ export class ApiauthService{
   url: string = 'https://localhost:44327/api/User/login';
 
   private usuarioSubject: BehaviorSubject<usuario>;
+  public usuar: Observable<usuario>;
 
   public get usuarioData(): usuario{
     return this.usuarioSubject.value;
@@ -22,6 +23,7 @@ export class ApiauthService{
   constructor(private http: HttpClient){
     this.usuarioSubject =
      new BehaviorSubject<usuario>(JSON.parse(localStorage.getItem('usuario')));
+     this.usuar = this.usuarioSubject.asObservable();
   }
 
   login (login: login): Observable<Response>{
